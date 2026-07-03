@@ -1,0 +1,44 @@
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+int main()
+{
+    int a[] = {5, 7, 9, 3, 4};
+    int n = 5, k = 9;
+
+    unordered_map<int, int> mp;
+
+    int psum = 0;
+    int maxlen = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        psum = psum + a[i];
+
+        if (psum == k)
+        {
+            maxlen = i + 1;
+        }
+
+        int rem = psum - k;
+
+        if (mp.find(rem) != mp.end())
+        {
+            int len = i - mp[rem];
+            if (len > maxlen)
+            {
+                maxlen = len;
+            }
+        }
+
+        if (mp.find(psum) == mp.end())
+        {
+            mp[psum] = i;
+        }
+    }
+
+    cout << "Length of longest subarray = " << maxlen << endl;
+
+    return 0;
+}
